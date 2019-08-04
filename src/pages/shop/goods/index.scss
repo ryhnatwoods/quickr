@@ -1,0 +1,16 @@
+.uu-goodinfo__container {
+  & .item_container {
+    border: 1px solid #ccc;
+    width: 33%;
+    height: 33%;
+    display: inline-block;
+  }
+  > .child_container {
+    margin-bottom: 20px;
+  }
+  & .confirm_btn {
+    width: 100%;
+    position: fixed;
+    bottom: 30rpx;
+  }
+}

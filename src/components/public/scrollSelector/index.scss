@@ -1,0 +1,14 @@
+.uu-scrollselector__container {
+  // width: 100%;
+  // white-space: nowrap;
+
+  & .child {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    border: 2px solid #ccc;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+}

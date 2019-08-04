@@ -1,0 +1,22 @@
+.provider_index {
+  width: 100%;
+  height: 100%;
+  > .test_uu_map {
+    width: 100%;
+    height: 100%;
+  }
+  & .main-map-function {
+    position: fixed;
+    width: 64rpx;
+    height: 64rpx;
+    left: 28rpx;
+    bottom: 56rpx;
+    /* margin-left: 28rpx;
+          margin-top: 750rpx; */
+  }
+  & .map-location {
+    width: 64rpx;
+    height: 64rpx;
+    border-radius: 3px;
+  }
+}

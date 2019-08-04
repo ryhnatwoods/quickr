@@ -1,0 +1,40 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 4px 1px 1px #cccccc;
+  margin: 8px;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.task_circle_inprogress_mark {
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  line-height: 10px;
+  border-radius: 50%;
+  transition: all 0.3s;
+  background-color: #34a725;
+  margin-right: 25px;
+}
+
+.task_circle_completed_mark {
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+  text-align: center;
+  line-height: 10px;
+  border-radius: 50%;
+  transition: all 0.3s;
+  background-color: transparent;
+  border: 2px #3c3c3c solid;
+  margin-right: 25px;
+}
