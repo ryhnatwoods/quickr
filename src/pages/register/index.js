@@ -85,6 +85,15 @@ class Register extends Component {
       registeredRole: _tmp_role
     });
   };
+
+  sendRandomCode = e => {
+    console.log(e);
+    Taro.showModal({
+      title: "",
+      content: "短信已发送",
+      showCancel: false
+    }).then(res => console.log(res.confirm, res.cancel));
+  };
   render() {
     return (
       <View className='uu-register__container'>
@@ -103,7 +112,7 @@ class Register extends Component {
               maxLength='4'
               focus
             />
-            <Button className='btn_item'>
+            <Button className='btn_item' onClick={this.sendRandomCode}>
               {this.BTN_RANDOM_CODE_PLACEHOLDER}
             </Button>
           </View>

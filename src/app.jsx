@@ -36,33 +36,33 @@ class App extends Component {
       navigationBarBackgroundColor: "#fff",
       navigationBarTitleText: "WeChat",
       navigationBarTextStyle: "black"
-    },
-    tabBar: {
-      color: "#a09895",
-      selectedColor: "#ff9a00",
-      borderStyle: "white",
-      backgroundColor: "#fff",
-      list: [
-        {
-          pagePath: "pages/user/index",
-          text: "首页",
-          iconPath: "assets/images/index.png",
-          selectedIconPath: "assets/images/index_active.png"
-        },
-        {
-          pagePath: "pages/user/index",
-          text: "通知",
-          iconPath: "assets/images/msg.png",
-          selectedIconPath: "assets/images/msg_active.png"
-        },
-        {
-          pagePath: "pages/user/index",
-          text: "我的",
-          iconPath: "assets/images/mine.png",
-          selectedIconPath: "assets/images/mine_active.png"
-        }
-      ]
     }
+    // tabBar: {
+    //   color: "#a09895",
+    //   selectedColor: "#ff9a00",
+    //   borderStyle: "white",
+    //   backgroundColor: "#fff",
+    //   list: [
+    //     {
+    //       pagePath: "pages/user/index",
+    //       text: "首页",
+    //       iconPath: "assets/images/index.png",
+    //       selectedIconPath: "assets/images/index_active.png"
+    //     },
+    //     {
+    //       pagePath: "pages/user/index",
+    //       text: "通知",
+    //       iconPath: "assets/images/msg.png",
+    //       selectedIconPath: "assets/images/msg_active.png"
+    //     },
+    //     {
+    //       pagePath: "pages/user/index",
+    //       text: "我的",
+    //       iconPath: "assets/images/mine.png",
+    //       selectedIconPath: "assets/images/mine_active.png"
+    //     }
+    //   ]
+    // }
   };
 
   componentWillMount() {
