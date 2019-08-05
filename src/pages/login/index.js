@@ -1,8 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, RadioGroup, Radio } from "@tarojs/components";
 import { AtForm, AtInput, AtButton } from "taro-ui";
-import MoveView from "../../components/moveview";
-
+import UUMap from "../../platform/weapp/map";
 import "./index.scss";
 
 class Login extends Component {
@@ -22,12 +21,14 @@ class Login extends Component {
   };
   render() {
     return (
-      <AtForm>
-        <MoveView />
-        <AtButton formType='submit' onClick={this.gotoPanel}>
-          登陆
-        </AtButton>
-      </AtForm>
+      // <AtForm>
+      //   <AtButton formType='submit' onClick={this.gotoPanel}>
+      //     登陆
+      //   </AtButton>
+      // </AtForm>
+      <View className='uu-map__container'>
+        <UUMap />
+      </View>
     );
   }
 }

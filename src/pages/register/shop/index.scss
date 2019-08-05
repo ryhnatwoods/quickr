@@ -1,0 +1,30 @@
+@import "../register_page.scss";
+
+.uu-shopuser-register__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 600px;
+  margin: auto;
+  & .upload_shop_idphoto {
+    display: flex;
+    width: 600px;
+    justify-content: space-around;
+    & .text_item {
+      margin: auto;
+    }
+    & .image_item {
+      width: 200px;
+      border: 2px solid rgb(37, 206, 15);
+      margin-bottom: 20px;
+    }
+  }
+  & .register-btn {
+    margin-top: 40px;
+    background-color: rgb(102, 219, 87);
+    width: 100%;
+    border-radius: 30px;
+  }
+}

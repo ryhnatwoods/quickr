@@ -45,7 +45,7 @@ export default class Index extends Component {
   gotoPanel = (id, e) => {
     e.stopPropagation();
     console.log("id: " + id);
-    Taro.navigateTo({
+    Taro.switchTab({
       url: `/pages/${id.toLowerCase()}/index`
     });
   };
