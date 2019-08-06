@@ -1,8 +1,8 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, RadioGroup, Radio } from "@tarojs/components";
-import { AtForm, AtInput, AtButton } from "taro-ui";
-import UUMap from "../../platform/weapp/map";
+import { View, Text, Image, Button, Checkbox } from "@tarojs/components";
+import { AtButton } from "taro-ui";
 import "./index.scss";
+import Logo from "../../assets/images/paotui_logo.jpg";
 
 class Login extends Component {
   config = {
@@ -21,13 +21,26 @@ class Login extends Component {
   };
   render() {
     return (
-      // <AtForm>
-      //   <AtButton formType='submit' onClick={this.gotoPanel}>
-      //     登陆
-      //   </AtButton>
-      // </AtForm>
-      <View className='uu-map__container'>
-        <UUMap />
+      <View className='uu-login__container'>
+        <View className='head'>
+          <Button>取消</Button>
+        </View>
+        <View className='logo_container'>
+          <Image src={Logo} className='logo_item' />
+        </View>
+        <View className='content'>
+          <View className='login_info'>
+            <Text>登录后该应用将获得以下权限</Text>
+          </View>
+          <View className='login_info_chkbox'>
+            <Checkbox value='选中' checked>
+              获得你的公开信息（昵称，头像等）
+            </Checkbox>
+          </View>
+          <View className='login-btn'>
+            <AtButton formType='submit'>登录</AtButton>
+          </View>
+        </View>
       </View>
     );
   }

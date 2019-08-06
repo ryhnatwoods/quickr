@@ -45,19 +45,20 @@ const controls = [
   }
 ];
 function UUMap(props) {
-  const { marker, setMarker } = useState({ dummyMarkers });
+  const [markers, setMarkers] = useState({
+    latitude: 0,
+    longitude: 0
+  });
   useEffect(() => {
     const asyncLoc = Taro.getLocation({ type: "gcj02" })
       .then(function(res) {
         const latitude = res.latitude,
-          longtitude = res.longitude;
-        console.log(marker);
-        const updatedMarker = dummyMarkers.map(item => {
-          item.latitude = latitude;
-          item.longitude = longtitude;
-          return item;
+          longitude = res.longitude;
+        setMarkers({
+          latitude,
+          longitude
         });
-        setMarker(updatedMarker);
+        moveTolocation();
       })
       .catch(function(e) {
         console.log(e);
@@ -78,10 +79,22 @@ function UUMap(props) {
     onTap = e => {
       console.log(e);
     };
+
+  /**
+   * 移动到中心点
+   */
+  const moveTolocation = e => {
+    //mapId 就是你在 map 标签中定义的 id
+    var mapCtx = Taro.createMapContext("myMap");
+    mapCtx.moveToLocation();
+  };
   return (
     <Map
+      id='myMap'
       className='test_uu_map'
-      markers={marker}
+      latitude={31}
+      longtitude={121}
+      markers={markers}
       controls={controls}
       polyline={polyline}
       onRegionChange={regionchange}

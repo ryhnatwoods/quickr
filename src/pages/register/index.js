@@ -21,6 +21,7 @@ class Register extends Component {
     this.INPUT_CELLPHONE_PLACEHOLDER = "请输入手机号";
     this.INPUT_RANDOM_CODE_PLACEHOLDER = "填写验证码";
     this.BTN_RANDOM_CODE_PLACEHOLDER = "获取验证码";
+    this.BTN_RANDOM_CODE_AGAIN_PLACEHOLDER = "s后重新获取";
     this.RADIO_SHOP_PLACEHOLDER = "商家";
     this.RADIO_RIDER_PLACEHOLDER = "骑手";
     this.RADIO_USER_PLACEHOLDER = "用户";
@@ -46,7 +47,11 @@ class Register extends Component {
     super(...arguments);
     this.initPageConst();
     this.state = {
-      registeredRole: "user"
+      registeredRole: "user",
+      btn_name: "getcodebtn",
+      countDown: 120,
+      mobile: "",
+      code: ""
     };
   }
   handleChange = e => {
@@ -88,12 +93,39 @@ class Register extends Component {
 
   sendRandomCode = e => {
     console.log(e);
+    this.doCountDown();
     Taro.showModal({
       title: "",
       content: "短信已发送",
       showCancel: false
     }).then(res => console.log(res.confirm, res.cancel));
   };
+
+  doCountDown = () => {
+    var _count_point = this.state.countDown;
+    console.info("====>countDown11111");
+    console.info(_count_point);
+    console.info("====>countDown11111");
+    if (--_count_point > 0) {
+      this.setState({
+        countDown: _count_point,
+        btn_name: "waitcountdown"
+      });
+      setTimeout(
+        function() {
+          this.doCountDown();
+        }.bind(this),
+        1000
+      );
+    } else {
+      //倒计时重置
+      this.setState({
+        btn_name: "getcodebtn",
+        countDown: 120
+      });
+    }
+  };
+
   render() {
     return (
       <View className='uu-register__container'>
@@ -113,7 +145,9 @@ class Register extends Component {
               focus
             />
             <Button className='btn_item' onClick={this.sendRandomCode}>
-              {this.BTN_RANDOM_CODE_PLACEHOLDER}
+              {this.state.btn_name === "getcodebtn"
+                ? this.BTN_RANDOM_CODE_PLACEHOLDER
+                : this.state.countDown + this.BTN_RANDOM_CODE_AGAIN_PLACEHOLDER}
             </Button>
           </View>
           <RadioGroup className='radio-rolegroup' onChange={this.roleHandler}>

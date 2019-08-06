@@ -1,70 +1,69 @@
 @import "./register_page.scss";
 .uu-register__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  & .logo_item {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 160px;
+  }
+
+  & .uu-register-form__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
-    & .logo_item {
-        width:180px;
-        height:180px;
-        margin-bottom: 160px;
+    & .radio-rolegroup {
+      margin: auto;
+      display: flex;
+      align-items: center;
+      width: 500px;
+      & .radio-list__label {
+        margin: 20px;
+      }
     }
 
-    & .uu-register-form__container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        & .radio-rolegroup {
-          margin: auto;
-          display: flex;
-          align-items: center;
-          width: 500px;
-          & .radio-list__label {
-            margin: 20px;
-          }
-        }
-      
-        & .register-btn {
-          margin-top: 40px;
-          background-color: rgb(102, 219, 87);
-          width: 100%;
-          border-radius: 30px;
-        }
-        & .full_input_item {
-          border: 1px solid #ccc;
-          border-radius: 30px;
-          height: 80px;
-          background-color: #fff;
-        }
-        & .randomcode__container {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-          height: 80px;
-          margin: 40px 0px;
-          & .input_item {
-            border: 1px solid #ccc;
-            height: 80px;
-            border-radius: 30px 0px 0px 30px;
-            width: 400px;
-            margin-right: 15px;
-            box-shadow: 1px 1px 1px #888;
-          }
-          & .btn_item {
-            border: 1px solid #ccc;
-            height: 80px;
-            border-radius: 0px 30px 30px 0px;
-            width: 150px;
-            margin-right: 15px;
-            box-shadow: 1px 1px 1px #888;
-            opacity: 0.6;
-            background-color: #fff;
-            color: rgb(102, 219, 87);
-          }
-        }
+    & .register-btn {
+      margin-top: 40px;
+      background-color: rgb(102, 219, 87);
+      width: 100%;
+      border-radius: 30px;
+    }
+    & .full_input_item {
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      height: 80px;
+      background-color: #fff;
+    }
+    & .randomcode__container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 80px;
+      margin: 40px 0px;
+      & .input_item {
+        border: 1px solid #ccc;
+        height: 80px;
+        border-radius: 30px 0px 0px 30px;
+        width: 400px;
+        margin-right: 15px;
+        box-shadow: 1px 1px 1px #888;
       }
+      & .btn_item {
+        border: 1px solid #ccc;
+        height: 80px;
+        border-radius: 0px 30px 30px 0px;
+        width: 300px;
+        margin-right: 15px;
+        box-shadow: 1px 1px 1px #888;
+        opacity: 0.6;
+        background-color: #fff;
+        color: rgb(102, 219, 87);
+      }
+    }
+  }
 }
-
