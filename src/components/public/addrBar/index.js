@@ -1,22 +1,18 @@
 // @ts-nocheck
 import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import { AtIcon, AtButton } from "taro-ui";
+import NavigatorBtn from "../navigator-btn";
 import "./index.scss";
 
 function AddrBar(props) {
   return (
     <View key='addr_bar' className='uu-addrbar__container'>
-      <View className='icon'>
-        <AtIcon prefixClass='fa' value='circle' size='15' color={props.color} />
-      </View>
+      <View className={props.color + " icon"} />
+      <Text>{props.title}</Text>
       <View className='desc__container'>
-        <Text>{props.title}</Text>
-        <Text>{props.message}</Text>
+        <Text>1991991999</Text>
+        <NavigatorBtn name='cityIndexes'>常用</NavigatorBtn>
       </View>
-      <AtButton size='small' onClick={props.clickHandler}>
-        常用
-      </AtButton>
     </View>
   );
 }
