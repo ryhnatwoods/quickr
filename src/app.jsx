@@ -26,6 +26,7 @@ class App extends Component {
       "pages/rider/deliverPath/index",
       "pages/user/index",
       "pages/user/userOrder/index",
+      "pages/user/userAdmin/index",
       "pages/login/index",
       "pages/register/index",
       "pages/register/rider/index",

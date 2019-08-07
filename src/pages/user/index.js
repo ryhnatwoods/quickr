@@ -71,6 +71,12 @@ export default class UserPage extends Component {
       url: `/pages/user/userOrder/index`
     });
   }
+  goToUserCenter(e) {
+    e.stopPropagation();
+    Taro.navigateTo({
+      url: `/pages/user/userAdmin/index`
+    });
+  }
   handleUserUU() {}
   handleSearchAddress() {}
   render() {
@@ -83,6 +89,8 @@ export default class UserPage extends Component {
         />
         <Map onClick={this.onTap} class='test_uu_map' show-location>
           <CoverView class='main__panel'>
+            <CoverImage src={main_location} class='map-location' 
+              onClick={this.goToUserCenter.bind(this)}/>
             <CoverImage src={main_location} class='map-location' />
             <AtTabs
               current={this.state.current}

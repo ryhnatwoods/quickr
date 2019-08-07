@@ -1,0 +1,18 @@
+@import "~taro-ui/dist/style/components/list.scss";
+@import "~taro-ui/dist/style/components/accordion.scss";
+@import "~taro-ui/dist/style/components/avatar.scss";
+.uu_page{
+    display:-webkit-flex;
+    display:flex;
+    -webkit-flex-direction:column;
+    flex-direction:column;
+    min-height:100vh;
+    padding:10px;
+}
+.uu_user_header{
+    display:-webkit-flex;
+    display:flex;
+    -webkit-align-items:center;
+    align-items:center;
+    padding:10px;
+    height:3.84rem}
