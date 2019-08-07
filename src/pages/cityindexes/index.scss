@@ -1,0 +1,20 @@
+.example-item {
+  color: #333;
+  font-size: 28px;
+}
+
+.custom-area {
+  padding: 80px 20px;
+  font-size: 28px;
+  text-align: center;
+  background: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  & .item {
+    text-align: left;
+    margin: 10px 0px;
+    & .tag_item {
+      margin: 0px 10px 10px 10px;
+    }
+  }
+}

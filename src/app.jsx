@@ -29,7 +29,8 @@ class App extends Component {
       "pages/login/index",
       "pages/register/index",
       "pages/register/rider/index",
-      "pages/register/shop/index"
+      "pages/register/shop/index",
+      "pages/cityindexes/index"
     ],
     window: {
       backgroundTextStyle: "light",

@@ -4,6 +4,7 @@ import { View, Map, CoverView, CoverImage } from "@tarojs/components";
 import { AtSearchBar, AtTabs, AtTabsPane, AtInput, AtButton } from "taro-ui";
 import AddrBar from "../../components/public/addrBar";
 import ScrollSelector from "../../components/public/scrollSelector";
+import QQMapWX from "../../libs/qqmap-wx-jssdk.js";
 import SearchAddress from "../../components/searchAddress";
 import "./index.scss";
 
@@ -22,7 +23,10 @@ export default class UserPage extends Component {
       current: 0,
       userNeed: "",
       userNeedQueue: "",
-      userNeedUU: ""
+      userNeedUU: "",
+      latitude: null,
+      longitude: null,
+      address: ""
     };
     this.tabList = [
       { title: "帮我送" },
@@ -52,6 +56,50 @@ export default class UserPage extends Component {
       { title: "照顾宠物" },
       { title: "传单派发" }
     ];
+    this.qqmapsdk = new QQMapWX({
+      key: "SNTBZ-42R3U-BB6V3-2M34E-I2EYV-SMFX4"
+    });
+  }
+
+  componentWillMount() {
+    var self = this;
+    Taro.getLocation({
+      type: "gcj02",
+      success: function(res) {
+        const location = {
+          latitude: res.latitude,
+          longitude: res.longitude
+        };
+        self.setState(location);
+        //2、根据坐标获取当前位置名称，显示在顶部:腾讯地图逆地址解析
+        self.qqmapsdk.reverseGeocoder({
+          location,
+          success: function(addressRes) {
+            var address = addressRes.result.formatted_addresses.recommend;
+            console.log(address);
+            self.setState({ address });
+          }
+        });
+      }
+    });
+  }
+
+  componentDidMount() {}
+
+  componentDidShow() {
+    // 调用接口
+    this.qqmapsdk.search({
+      keyword: "酒店",
+      success: function(res) {
+        console.log(res);
+      },
+      fail: function(res) {
+        console.log(res);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
+    });
   }
   handleClick(value) {
     this.setState({
@@ -81,7 +129,13 @@ export default class UserPage extends Component {
           onChange={this.onChange.bind(this)}
           fixed='true'
         />
-        <Map onClick={this.onTap} class='test_uu_map' show-location>
+        <Map
+          onClick={this.onTap}
+          class='test_uu_map'
+          show-location
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
+        >
           <CoverView class='main__panel'>
             <CoverImage src={main_location} class='map-location' />
             <AtTabs
@@ -92,11 +146,7 @@ export default class UserPage extends Component {
             >
               <AtTabsPane current={this.state.current} index={0}>
                 <View className='main__panel__view'>
-                  <AddrBar
-                    color='#ccc'
-                    title='从哪里发货？'
-                    message='点击选择发送地址'
-                  />
+                  <AddrBar color='grey' title={this.state.address} message='' />
                   <AddrBar
                     color='yellow'
                     title='要送到哪里？'
