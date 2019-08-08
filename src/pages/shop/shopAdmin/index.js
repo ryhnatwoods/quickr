@@ -19,7 +19,7 @@ import {
   AtTag
 } from "taro-ui";
 
-class UserAdmin extends Component {
+class ShopAdmin extends Component {
   config = {
     navigationBarTitleText: "个人中心"
   };
@@ -134,4 +134,4 @@ class UserAdmin extends Component {
   }
 }
 
-export default UserAdmin;
+export default ShopAdmin;

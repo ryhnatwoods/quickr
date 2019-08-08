@@ -3,6 +3,7 @@ import Taro, { Component } from "@tarojs/taro";
 import { Input, View, Text, Map } from "@tarojs/components";
 import { AtTabs, AtTabsPane, AtTimeline, AtButton } from "taro-ui";
 import "./index.scss";
+import user_location from "../../assets/images/user.png";
 
 export default class SupplierPage extends Component {
   config = {
@@ -79,8 +80,21 @@ export default class SupplierPage extends Component {
       url: `/pages/rider/deliverPath/index`
     });
   }
+  goToUserCenter(e) {
+    e.stopPropagation();
+    Taro.navigateTo({
+      url: `/pages/rider/riderAdmin/index`
+    });
+  }
   render() {
     return (
+      <View>
+        {/* fix this icon after finish this page */}
+        <CoverImage
+            src={user_location}
+            onClick={this.goToUserCenter.bind(this)}
+          />
+      
       <AtTabs
         current={this.state.current}
         scroll
@@ -149,6 +163,7 @@ export default class SupplierPage extends Component {
           </View>
         </AtTabsPane>
       </AtTabs>
+      </View>
     );
   }
 }

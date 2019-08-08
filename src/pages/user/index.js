@@ -10,6 +10,7 @@ import "./index.scss";
 
 //import img
 import main_location from "../../assets/images/dw.png";
+import user_location from "../../assets/images/user.png";
 
 export default class UserPage extends Component {
   config = {
@@ -149,7 +150,7 @@ export default class UserPage extends Component {
         >
           <CoverView class='main__panel'>
             <CoverImage
-              src={main_location}
+              src={user_location}
               class='map-location'
               onClick={this.goToUserCenter.bind(this)}
             />

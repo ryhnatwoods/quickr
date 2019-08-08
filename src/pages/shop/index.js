@@ -4,6 +4,7 @@ import { View, Text } from "@tarojs/components";
 import { AtFab } from "taro-ui";
 import ScollTab from "../../components/scrollTab";
 import "./index.scss";
+import user_location from "../../assets/images/user.png";
 
 export default class ShopPage extends Component {
   config = {
@@ -19,6 +20,12 @@ export default class ShopPage extends Component {
     e.stopPropagation();
     Taro.navigateTo({
       url: `/pages/shop/order/index`
+    });
+  }
+  goToUserCenter(e) {
+    e.stopPropagation();
+    Taro.navigateTo({
+      url: `/pages/shop/shopAdmin/index`
     });
   }
   //因为taro中并没有onload的生命周期钩子函数，用componentDidMount代替
@@ -48,6 +55,11 @@ export default class ShopPage extends Component {
     const isRequiredButton = true;
     return (
       <View>
+        {/* fix this icon after finish this page */}
+        <CoverImage
+            src={user_location}
+            onClick={this.goToUserCenter.bind(this)}
+          />
         <ScollTab
           tabList={tabList}
           winHeight={this.state.winHeight}
