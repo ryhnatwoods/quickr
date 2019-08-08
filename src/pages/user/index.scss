@@ -31,8 +31,9 @@ page {
   }
 
   & .main__panel {
-    bottom: 50px;
+    bottom: 0px;
     position: fixed;
+    width: 100%;
   }
 
   & .main__panel__view {
@@ -42,6 +43,7 @@ page {
     & .user_need {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
     }
   }
 }

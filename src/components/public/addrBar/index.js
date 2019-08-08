@@ -9,10 +9,8 @@ function AddrBar(props) {
     <View key='addr_bar' className='uu-addrbar__container'>
       <View className={props.color + " icon"} />
       <Text>{props.title}</Text>
-      <View className='desc__container'>
-        <Text>1991991999</Text>
-        <NavigatorBtn name='cityIndexes'>常用</NavigatorBtn>
-      </View>
+      <Text>1991991999</Text>
+      <NavigatorBtn name='cityIndexes'>常用</NavigatorBtn>
     </View>
   );
 }

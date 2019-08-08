@@ -13,7 +13,7 @@ function NavigatorBtn(props) {
   const { name, ...rest } = props;
   return (
     <Button className='uu-goto-btn' onClick={handleGoto.bind(this, name)}>
-      props.children
+      {props.children}
     </Button>
   );
 }

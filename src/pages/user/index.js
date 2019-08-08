@@ -40,6 +40,11 @@ export default class UserPage extends Component {
       { title: "饮料&早餐&宵夜" },
       { title: "药品" },
       { title: "生鲜" },
+      { title: "其他" },
+      { title: "随意购" },
+      { title: "饮料&早餐&宵夜" },
+      { title: "药品" },
+      { title: "生鲜" },
       { title: "其他" }
     ];
     this.userQueueOptions = [
@@ -143,18 +148,21 @@ export default class UserPage extends Component {
           longitude={this.state.longitude}
         >
           <CoverView class='main__panel'>
-            <CoverImage src={main_location} class='map-location' 
-              onClick={this.goToUserCenter.bind(this)}/>
+            <CoverImage
+              src={main_location}
+              class='map-location'
+              onClick={this.goToUserCenter.bind(this)}
+            />
             <CoverImage src={main_location} class='map-location' />
             <AtTabs
+              swipeable={false}
               current={this.state.current}
-              scroll
               tabList={this.tabList}
               onClick={this.handleClick.bind(this)}
             >
               <AtTabsPane current={this.state.current} index={0}>
                 <View className='main__panel__view'>
-                  <AddrBar color='grey' title={this.state.address} message='' />
+                  <AddrBar color='grey' title={this.state.address} />
                   <AddrBar
                     color='yellow'
                     title='要送到哪里？'
@@ -216,7 +224,7 @@ export default class UserPage extends Component {
               </AtTabsPane>
               <AtTabsPane current={this.state.current} index={4}>
                 <View className='main__panel__view'>
-                  {/* <View className='user_need'>
+                  <View className='user_need'>
                     <AtInput
                       name='userNeedUU'
                       type='text'
@@ -228,7 +236,7 @@ export default class UserPage extends Component {
                       下单
                     </AtButton>
                   </View>
-                  <ScrollSelector options={this.userUUOptions} /> */}
+                  <ScrollSelector options={this.userUUOptions} />
                 </View>
               </AtTabsPane>
             </AtTabs>

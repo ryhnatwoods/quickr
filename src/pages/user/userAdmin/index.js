@@ -9,7 +9,15 @@ import {
   Image
 } from "@tarojs/components";
 import "./index.scss";
-import { AtForm, AtButton, AtAccordion, AtList, AtListItem, AtAvatar,AtTag } from "taro-ui";
+import {
+  AtForm,
+  AtButton,
+  AtAccordion,
+  AtList,
+  AtListItem,
+  AtAvatar,
+  AtTag
+} from "taro-ui";
 
 class UserAdmin extends Component {
   config = {
@@ -44,7 +52,6 @@ class UserAdmin extends Component {
     super(...arguments);
     this.initPageConst();
     this.state = {
-      registeredRole: "user",
       open: true
     };
   }
@@ -52,60 +59,35 @@ class UserAdmin extends Component {
     console.log(e);
   };
 
-  roleHandler = e => {
-    console.log(e);
-    //e.detail.value 获取radio选中的值
-    const _tmp_role = e.detail.value;
-    this.setState({
-      registeredRole: _tmp_role
-    });
-  };
-
-  handleClick (value) {
+  handleClick(value) {
     this.setState({
       open: value
-    })
-  };
+    });
+  }
 
-  handleClickOrder = e => {
-    e.stopPropagation();
-    const _role = this.state.registeredRole;
-    switch (_role) {
-      case "shop":
-        Taro.navigateTo({
-          url: `/pages/register/shop/index`
-        });
-        break;
-      case "rider":
-        Taro.navigateTo({
-          url: `/pages/register/rider/index`
-        });
-        break;
-      case "user":
-        Taro.navigateTo({
-          url: `/pages/login/index`
-        });
-        break;
-      default:
-        break;
-    }
-  };
   render() {
     return (
       <View className='uu_page'>
-        <View className='uu_user_header'> 
-          <AtAvatar circle image='http://storage.360buyimg.com/mtd/home/32443566_635798770100444_2113947400891531264_n1533825816008.jpg'></AtAvatar>
-          
-          <AtButton circle type='primary' size='small'>178***4758</AtButton>
+        <View className='uu_user_header'>
+          <AtAvatar
+            circle
+            image='http://storage.360buyimg.com/mtd/home/32443566_635798770100444_2113947400891531264_n1533825816008.jpg'
+          />
+
+          <AtButton circle type='primary' size='small'>
+            178***4758
+          </AtButton>
         </View>
-        <View className='uu_user_header'> 
+        <View className='uu_user_header'>
           <View className='at-row'>
             <View className='at-col at-col-8'>
               <View className='at-row'>余额（元）</View>
               <View className='at-row'>0.00</View>
             </View>
             <View className='at-col at-col-4'>
-            <AtButton circle size='normal'>立即充值</AtButton>
+              <AtButton circle size='normal'>
+                立即充值
+              </AtButton>
             </View>
           </View>
         </View>
