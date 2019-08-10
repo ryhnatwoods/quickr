@@ -95,6 +95,7 @@ class RiderAdmin extends Component {
           open={this.state.open}
           onClick={this.handleClick.bind(this)}
           title='我的订单'
+          icon={{ value: 'menu', size: '16' }}
         >
           <AtList hasBorder={false}>
             <AtListItem

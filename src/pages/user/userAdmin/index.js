@@ -19,34 +19,18 @@ import {
   AtTag
 } from "taro-ui";
 
+import pay_location from "../../../assets/images/pay.png";
+import wait_order from "../../../assets/images/wait_order.png";
+import complete from "../../../assets/images/ordered.png";
+import running from "../../../assets/images/running.png";
+import log_off from "../../../assets/images/log_off.png";
+import question from "../../../assets/images/question.png";
+
 class UserAdmin extends Component {
   config = {
     navigationBarTitleText: "个人中心"
   };
   initPageConst() {
-    this.INPUT_CELLPHONE_PLACEHOLDER = "请输入手机号";
-    this.INPUT_RANDOM_CODE_PLACEHOLDER = "填写验证码";
-    this.BTN_RANDOM_CODE_PLACEHOLDER = "获取验证码";
-    this.RADIO_SHOP_PLACEHOLDER = "商家";
-    this.RADIO_RIDER_PLACEHOLDER = "骑手";
-    this.RADIO_USER_PLACEHOLDER = "用户";
-    this.roles = [
-      {
-        value: "shop",
-        text: this.RADIO_SHOP_PLACEHOLDER,
-        checked: false
-      },
-      {
-        value: "rider",
-        text: this.RADIO_RIDER_PLACEHOLDER,
-        checked: false
-      },
-      {
-        value: "user",
-        text: this.RADIO_USER_PLACEHOLDER,
-        checked: true
-      }
-    ];
   }
   constructor() {
     super(...arguments);
@@ -95,38 +79,39 @@ class UserAdmin extends Component {
           open={this.state.open}
           onClick={this.handleClick.bind(this)}
           title='我的订单'
+          icon={{ value: 'menu', size: '25' }}
         >
           <AtList hasBorder={false}>
             <AtListItem
               title='待支付'
               arrow='right'
-              iconInfo={{ size: 16, prefixClass:'fa', value: 'credit-card'}}
+              thumb={pay_location}
             />
             <AtListItem
               title='待接单'
               arrow='right'
-              iconInfo={{ size: 16, prefixClass:'fa', value: 'clipboard-list'}}
+              thumb={wait_order}
             />
             <AtListItem
               title='进行中'
               arrow='right'
-              iconInfo={{ size: 16, prefixClass:'fa', value: 'car'}}
+              thumb={running}
             />
             <AtListItem
               title='已完成'
               arrow='right'
-              iconInfo={{ size: 16, prefixClass:'fa', value: 'clipboard-check'}}
+              thumb={complete}
             />
           </AtList>
         </AtAccordion>
         <AtList>
           <AtListItem
             title='用户指南'
-            iconInfo={{ size: 16, prefixClass:'fa', value: 'question-circle'}}
+            thumb={question}
           />
           <AtListItem
             title='退出账户'
-            iconInfo={{ size: 16, prefixClass:'fa', value: 'sign-out-alt'}}
+            thumb={log_off}
           />
         </AtList>
       </View>

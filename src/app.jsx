@@ -5,6 +5,8 @@ import configStore from "./store";
 import GlobalData from "./global_data";
 import "./assets/font-awesome/font-awesome.css";
 import "./app.scss";
+
+import "./assets/css/element.scss"
 import Logo from "./assets/images/index.png";
 
 // 如果需要在 h5 环境中开启 React Devtools
