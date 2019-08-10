@@ -1,52 +1,24 @@
 import Taro, { Component } from "@tarojs/taro";
 import {
-  RadioGroup,
-  Radio,
-  Label,
-  View,
-  Input,
-  Button,
-  Image
+  View
 } from "@tarojs/components";
 import "./index.scss";
 import {
-  AtForm,
   AtButton,
-  AtAccordion,
   AtList,
   AtListItem,
-  AtAvatar,
-  AtTag
+  AtAvatar
 } from "taro-ui";
+
+import order_location from "../../../assets/images/order.png";
+import setting_location from "../../../assets/images/setting.png";
+import feedback_location from "../../../assets/images/feedback.png";
 
 class RiderAdmin extends Component {
   config = {
     navigationBarTitleText: "个人中心"
   };
   initPageConst() {
-    this.INPUT_CELLPHONE_PLACEHOLDER = "请输入手机号";
-    this.INPUT_RANDOM_CODE_PLACEHOLDER = "填写验证码";
-    this.BTN_RANDOM_CODE_PLACEHOLDER = "获取验证码";
-    this.RADIO_SHOP_PLACEHOLDER = "商家";
-    this.RADIO_RIDER_PLACEHOLDER = "骑手";
-    this.RADIO_USER_PLACEHOLDER = "用户";
-    this.roles = [
-      {
-        value: "shop",
-        text: this.RADIO_SHOP_PLACEHOLDER,
-        checked: false
-      },
-      {
-        value: "rider",
-        text: this.RADIO_RIDER_PLACEHOLDER,
-        checked: false
-      },
-      {
-        value: "user",
-        text: this.RADIO_USER_PLACEHOLDER,
-        checked: true
-      }
-    ];
   }
   constructor() {
     super(...arguments);
@@ -80,54 +52,52 @@ class RiderAdmin extends Component {
         </View>
         <View className='uu_user_header'>
           <View className='at-row'>
-            <View className='at-col at-col-8'>
-              <View className='at-row' style='font-size: 0.85rem'>余额（元）</View>
-              <View className='at-row' style='font-size: 1.7rem'>0.00</View>
+            <View className='at-col at-col-4'>
+              <View className='at-row' style='font-size: 1.25rem'>￥ 0.00</View>
+              <View className='at-row' style='font-size: 0.65rem'>账户余额</View>
             </View>
             <View className='at-col at-col-4'>
-              <AtButton circle size='normal'>
-                立即充值
-              </AtButton>
+              <View className='at-row' style='font-size: 1.25rem'>1200</View>
+              <View className='at-row' style='font-size: 0.65rem'>信用分</View>
+            </View>
+            <View className='at-col at-col-4'>
+              
+              <View className='at-row' style='font-size: 1.25rem'>待认证</View>
+              <View className='at-row' style='font-size: 0.65rem'>签约状态</View>
             </View>
           </View>
         </View>
-        <AtAccordion
-          open={this.state.open}
-          onClick={this.handleClick.bind(this)}
-          title='我的订单'
-          icon={{ value: 'menu', size: '16' }}
-        >
-          <AtList hasBorder={false}>
-            <AtListItem
-              title='待支付'
-              arrow='right'
-              iconInfo={{ size: 16, prefixClass:'fa', value: 'credit-card'}}
-            />
-            <AtListItem
-              title='待接单'
-              arrow='right'
-              iconInfo={{ size: 16, prefixClass:'fa', value: 'clipboard-list'}}
-            />
-            <AtListItem
-              title='进行中'
-              arrow='right'
-              iconInfo={{ size: 16, prefixClass:'fa', value: 'car'}}
-            />
-            <AtListItem
-              title='已完成'
-              arrow='right'
-              iconInfo={{ size: 16, prefixClass:'fa', value: 'clipboard-check'}}
-            />
-          </AtList>
-        </AtAccordion>
+        <View className='uu_user_body'>
+          <View className='at-row' style='justify-content: center;'>
+            <span>----------今日成就----------</span>
+          </View>
+          <View className='at-row at-row__justify--around' >
+            <View className='at-col at-col-4'>
+              <View className='at-row' style='justify-content: center;'>0笔</View>
+              <View className='at-row' style='justify-content: center;'>完成订单</View>
+            </View>
+            <View className='at-col at-col-4'>
+              <View className='at-row' style='justify-content: center;'>0.00公里</View>
+              <View className='at-row' style='justify-content: center;'>奔驰里程</View>
+            </View>
+            <View className='at-col at-col-4'>
+              <View className='at-row' style='justify-content: center;'>0.00元</View>
+              <View className='at-row' style='justify-content: center;'>获得收益</View>
+            </View>
+          </View>
+        </View>
         <AtList>
           <AtListItem
-            title='用户指南'
-            iconInfo={{ size: 16, prefixClass:'fa', value: 'question-circle'}}
+            title='我的订单'
+            thumb={order_location}
           />
           <AtListItem
-            title='退出账户'
-            iconInfo={{ size: 16, prefixClass:'fa', value: 'sign-out-alt'}}
+            title='设置'
+            thumb={setting_location}
+          />
+          <AtListItem
+            title='意见反馈'
+            thumb={feedback_location}
           />
         </AtList>
       </View>
