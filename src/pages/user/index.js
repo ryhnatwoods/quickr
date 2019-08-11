@@ -133,13 +133,24 @@ export default class UserPage extends Component {
   }
   handleUserUU() {}
   handleSearchAddress() {}
+
+  handleRegionChange(e) {
+    e.stopPropagation();
+    console.log(e);
+  }
+  gotoOrderPage(e) {
+    e.stopPropagation();
+    Taro.navigateTo({
+      url: `/pages/user/userOrder/order1/index`
+    });
+  }
   render() {
     return (
       <View className='uu-user_container'>
         <AtSearchBar
           value={this.state.value}
           onChange={this.onChange.bind(this)}
-          fixed='true'
+          fixed
         />
         <Map
           onClick={this.onTap}
@@ -147,6 +158,7 @@ export default class UserPage extends Component {
           show-location
           latitude={this.state.latitude}
           longitude={this.state.longitude}
+          onRegionChange={this.handleRegionChange}
         >
           <CoverView class='main__panel'>
             <CoverImage
@@ -155,94 +167,96 @@ export default class UserPage extends Component {
               onClick={this.goToUserCenter.bind(this)}
             />
             <CoverImage src={main_location} class='map-location' />
-            <AtTabs
-              swipeable={false}
-              current={this.state.current}
-              tabList={this.tabList}
-              onClick={this.handleClick.bind(this)}
-            >
-              <AtTabsPane current={this.state.current} index={0}>
-                <View className='main__panel__view'>
-                  <AddrBar color='grey' title={this.state.address} />
-                  <AddrBar
-                    color='yellow'
-                    title='要送到哪里？'
-                    message='点击选择送货地址'
-                  />
-                </View>
-              </AtTabsPane>
-              <AtTabsPane current={this.state.current} index={1}>
-                <View className='main__panel__view'>
-                  <AddrBar
-                    color='#ccc'
-                    title='从哪里取货？'
-                    message='点击选择取送地址'
-                  />
-                  <AddrBar
-                    color='yellow'
-                    title='取货后送到哪里？'
-                    message='点击选择收货地址'
-                  />
-                </View>
-              </AtTabsPane>
-              <AtTabsPane current={this.state.current} index={2}>
-                <View className='main__panel__view'>
-                  <View className='user_need'>
-                    <AtInput
-                      name='userNeed'
-                      type='text'
-                      placeholder='想买点什么...'
-                      value={this.state.userNeed}
-                      onChange={this.handleUserNeed.bind(this)}
-                    />
-                    <AtButton
-                      circle
-                      size='small'
-                      onClick={this.handleUserNeed.bind(this)}
-                    >
-                      下单
-                    </AtButton>
-                  </View>
-                  <ScrollSelector options={this.userOptions} />
-                </View>
-              </AtTabsPane>
-              <AtTabsPane current={this.state.current} index={3}>
-                <View className='main__panel__view'>
-                  <View className='user_need'>
-                    <AtInput
-                      name='userNeedQueue'
-                      type='text'
-                      placeholder='需要我排什么队？'
-                      value={this.state.userNeedQueue}
-                      onChange={this.handleUserNeedQueue.bind(this)}
-                    />
-                    <AtButton circle size='small'>
-                      下单
-                    </AtButton>
-                  </View>
-                  <ScrollSelector options={this.userQueueOptions} />
-                </View>
-              </AtTabsPane>
-              <AtTabsPane current={this.state.current} index={4}>
-                <View className='main__panel__view'>
-                  <View className='user_need'>
-                    <AtInput
-                      name='userNeedUU'
-                      type='text'
-                      placeholder='需要帮你做点什么？'
-                      value={this.state.userNeedUU}
-                      onChange={this.handleUserUU.bind(this)}
-                    />
-                    <AtButton circle size='small'>
-                      下单
-                    </AtButton>
-                  </View>
-                  <ScrollSelector options={this.userUUOptions} />
-                </View>
-              </AtTabsPane>
-            </AtTabs>
           </CoverView>
         </Map>
+        <AtTabs
+          className='tab_container'
+          swipeable={false}
+          current={this.state.current}
+          tabList={this.tabList}
+          onClick={this.handleClick.bind(this)}
+        >
+          <AtTabsPane current={this.state.current} index={0}>
+            <View className='main__panel__view'>
+              <AddrBar color='grey' title={this.state.address} />
+              <AddrBar
+                color='yellow'
+                title='要送到哪里？'
+                message='点击选择送货地址'
+                openOrder={this.gotoOrderPage}
+              />
+            </View>
+          </AtTabsPane>
+          <AtTabsPane current={this.state.current} index={1}>
+            <View className='main__panel__view'>
+              <AddrBar
+                color='#ccc'
+                title='从哪里取货？'
+                message='点击选择取送地址'
+              />
+              <AddrBar
+                color='yellow'
+                title='取货后送到哪里？'
+                message='点击选择收货地址'
+              />
+            </View>
+          </AtTabsPane>
+          <AtTabsPane current={this.state.current} index={2}>
+            <View className='main__panel__view'>
+              <View className='user_need'>
+                <AtInput
+                  name='userNeed'
+                  type='text'
+                  placeholder='想买点什么...'
+                  value={this.state.userNeed}
+                  onChange={this.handleUserNeed.bind(this)}
+                />
+                <AtButton
+                  circle
+                  size='small'
+                  onClick={this.handleUserNeed.bind(this)}
+                >
+                  下单
+                </AtButton>
+              </View>
+              <ScrollSelector options={this.userOptions} />
+            </View>
+          </AtTabsPane>
+          <AtTabsPane current={this.state.current} index={3}>
+            <View className='main__panel__view'>
+              <View className='user_need'>
+                <AtInput
+                  name='userNeedQueue'
+                  type='text'
+                  placeholder='需要我排什么队？'
+                  value={this.state.userNeedQueue}
+                  onChange={this.handleUserNeedQueue.bind(this)}
+                />
+                <AtButton circle size='small'>
+                  下单
+                </AtButton>
+              </View>
+              <ScrollSelector options={this.userQueueOptions} />
+            </View>
+          </AtTabsPane>
+          <AtTabsPane current={this.state.current} index={4}>
+            <View className='main__panel__view'>
+              <View className='user_need'>
+                <AtInput
+                  name='userNeedUU'
+                  type='text'
+                  placeholder='需要帮你做点什么？'
+                  value={this.state.userNeedUU}
+                  onChange={this.handleUserUU.bind(this)}
+                />
+                <AtButton circle size='small'>
+                  下单
+                </AtButton>
+              </View>
+              <ScrollSelector options={this.userUUOptions} />
+            </View>
+          </AtTabsPane>
+        </AtTabs>
       </View>
     );
   }

@@ -6,44 +6,31 @@ page {
   height: 100%;
   > .test_uu_map {
     width: 100%;
-    height: 100%;
+    height: 75%;
+    & .map-location {
+      width: 64rpx;
+      height: 64rpx;
+      border-radius: 3px;
+      position: fixed;
+    }
+    & .main__panel {
+      bottom: 0px;
+      position: fixed;
+      width: 100%;
+      height: 30%;
+    }
   }
-  & .main-map-function {
-    position: fixed;
-    width: 64rpx;
-    height: 64rpx;
-    left: 28rpx;
-    bottom: 56rpx;
-    /* margin-left: 28rpx;
-        margin-top: 750rpx; */
-  }
-
-  & .map-location {
-    width: 64rpx;
-    height: 64rpx;
-    border-radius: 3px;
-  }
-
-  & .top__panel {
-    top: 80px;
-    position: fixed;
-    width: 100%;
-  }
-
-  & .main__panel {
-    bottom: 0px;
-    position: fixed;
-    width: 100%;
-  }
-
-  & .main__panel__view {
-    background-color: #fff;
-    height: 100%;
-    width: inherit;
-    & .user_need {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+  & .tab_container {
+    height: 25%;
+    & .main__panel__view {
+      background-color: #fff;
+      height: 100%;
+      width: inherit;
+      & .user_need {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
     }
   }
 }

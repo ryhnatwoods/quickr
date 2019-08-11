@@ -3,7 +3,7 @@ import { Provider } from "@tarojs/redux";
 import Index from "./pages/index";
 import configStore from "./store";
 import GlobalData from "./global_data";
-import "./assets/font-awesome/font-awesome.css";
+// import "./assets/font-awesome/font-awesome.css";
 import "./app.scss";
 
 import "./assets/css/element.scss"
@@ -30,6 +30,7 @@ class App extends Component {
       "pages/rider/riderAdmin/index",
       "pages/user/index",
       "pages/user/userOrder/index",
+      "pages/user/userOrder/order1/index",
       "pages/user/userAdmin/index",
       "pages/login/index",
       "pages/register/index",

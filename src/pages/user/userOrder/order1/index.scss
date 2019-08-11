@@ -1,0 +1,32 @@
+@import "~taro-ui/dist/style/components/divider.scss";
+page {
+  background-color: #ccc;
+}
+.paotui_panel {
+  background: #fff;
+  padding: 0;
+  margin: 20px 10px;
+  border-radius: 15px;
+  box-shadow: 0 0 3rem rgba(236, 239, 240, 0.5) inset;
+  // box-shadow: #ccc;
+  .goods {
+    & .uu-scrollselector__container {
+      width: 100%;
+      white-space: nowrap;
+
+      .child {
+        display: inline-block;
+        margin: 10px 30px;
+        & image {
+          width: 50px;
+          height: 50px;
+          display: block;
+        }
+      }
+    }
+
+    & .adjust_margin {
+      padding: 0px 32px;
+    }
+  }
+}

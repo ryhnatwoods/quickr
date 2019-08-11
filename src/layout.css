@@ -1,0 +1,6 @@
+@charset "UTF-8";
+.flex_test {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

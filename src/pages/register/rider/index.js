@@ -51,9 +51,32 @@ export default class RiderRegister extends Component {
     }
     this.setState(updateImage);
   }
+  onSave = e => {
+    e.stopPropagation();
+    const { front, back } = this.state;
+    if (front.front_image.length === 0) {
+      Taro.showModal({
+        title: "提示",
+        content: "请上传身份证正面",
+        showCancel: false
+      });
+      return;
+    }
+    if (back.back_image.length === 0) {
+      Taro.showModal({
+        title: "提示",
+        content: "请上传身份证反面",
+        showCancel: false
+      });
+      return;
+    }
+  };
   render() {
     return (
-      <AtForm className='uu-rideruser-register__container'>
+      <AtForm
+        className='uu-rideruser-register__container'
+        onSubmit={this.onSave}
+      >
         <View className='upload_rider_idphoto'>
           <View className='text_item'>
             <Text>身份证正面</Text>

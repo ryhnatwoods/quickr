@@ -1,5 +1,5 @@
 @import "./layout.scss";
-@mixin btn(
+@mixin paotui_btn(
   $size: 14px,
   $color: #fff,
   $bgcolor: #f04752,
@@ -17,10 +17,10 @@
   display: inline;
 }
 
-@mixin list($direction: column) {
+@mixin paotui_list($direction: column) {
   @include flex($direction);
 }
-@mixin panel(
+@mixin paotui_panel(
   $bgcolor: #fff,
   $padding: 0,
   $margin: 20px 0,

@@ -8,7 +8,7 @@ function AddrBar(props) {
   return (
     <View key='addr_bar' className='uu-addrbar__container'>
       <View className={props.color + " icon"} />
-      <Text>{props.title}</Text>
+      <Text onClick={props.openOrder}>{props.title}</Text>
       <Text>1991991999</Text>
       <NavigatorBtn name='cityIndexes'>常用</NavigatorBtn>
     </View>

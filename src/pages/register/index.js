@@ -92,20 +92,20 @@ class Register extends Component {
   };
 
   sendRandomCode = e => {
-    console.log(e);
-    this.doCountDown();
-    Taro.showModal({
-      title: "",
-      content: "短信已发送",
-      showCancel: false
-    }).then(res => console.log(res.confirm, res.cancel));
+    e.stopPropagation();
+    if (this.state.countDown === 120) {
+      this.doCountDown();
+      Taro.showModal({
+        title: "",
+        content: "短信已发送",
+        showCancel: false
+      }).then(res => console.log(res.confirm, res.cancel));
+    }
   };
 
   doCountDown = () => {
     var _count_point = this.state.countDown;
-    console.info("====>countDown11111");
     console.info(_count_point);
-    console.info("====>countDown11111");
     if (--_count_point > 0) {
       this.setState({
         countDown: _count_point,
@@ -121,20 +121,53 @@ class Register extends Component {
       //倒计时重置
       this.setState({
         btn_name: "getcodebtn",
-        countDown: 120
+        countDown: 120,
+        code: ""
       });
     }
   };
-
+  updatePhone = e => {
+    this.setState({
+      mobile: e.target.value
+    });
+  };
+  updateCode = e => {
+    this.setState({
+      code: e.target.value
+    });
+  };
+  onSave = e => {
+    e.stopPropagation();
+    const { mobile, code } = this.state;
+    if (mobile == "") {
+      Taro.showModal({
+        title: "提示",
+        content: "请填写手机号码",
+        showCancel: false
+      });
+      return;
+    }
+    if (code == "") {
+      Taro.showModal({
+        title: "提示",
+        content: "请等待验证码",
+        showCancel: false
+      });
+      return;
+    }
+    this.gotoPanel(e);
+  };
   render() {
     return (
       <View className='uu-register__container'>
         <Image src={Logo} className='logo_item' />
-        <AtForm className='uu-register-form__container'>
+        <AtForm className='uu-register-form__container' onSubmit={this.onSave}>
           <Input
             className='full_input_item'
             placeholder={this.INPUT_CELLPHONE_PLACEHOLDER}
             maxLength='60'
+            value={this.state.mobile}
+            onChange={this.updatePhone}
             focus
           />
           <View className='randomcode__container'>
@@ -142,6 +175,8 @@ class Register extends Component {
               className='input_item'
               placeholder={this.INPUT_RANDOM_CODE_PLACEHOLDER}
               maxLength='4'
+              value={this.state.code}
+              onChange={this.updateCode}
               focus
             />
             <Button className='btn_item' onClick={this.sendRandomCode}>
@@ -168,8 +203,9 @@ class Register extends Component {
           </RadioGroup>
 
           <View className='register-btn'>
+            <AtButton formType='submit'>注册</AtButton>
             <AtButton formType='submit' onClick={this.gotoPanel}>
-              注册
+              点击获取微信授权
             </AtButton>
           </View>
         </AtForm>
