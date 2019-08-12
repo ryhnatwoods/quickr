@@ -7,15 +7,15 @@
     -webkit-flex-direction:column;
     flex-direction:column;
     min-height:100vh;
-    padding:10px;
+    padding:20rpx;
 }
 .uu_user_header{
     display:-webkit-flex;
     display:flex;
     -webkit-align-items:center;
     align-items:center;
-    padding:10px;
-    height:3.84rem}
+    padding:20rpx;
+    height:auto}
 .uu_user_body{
     display:-webkit-flex;
     display:flex;
@@ -23,6 +23,17 @@
     -webkit-align-items:center;
     align-items:center;
     justify-content: center;
-    padding:10px;
-    height:5rem
+    padding:20rpx;
+    height:5rem;
+    border: 6rpx solid gray;
+    border-radius: 20rpx;
+    margin-bottom: 20rpx;
+}
+.uu_user_field_row1{
+    font-size: 1.25rem;
+    justify-content: center;
+}
+.uu_user_field_row2{
+    font-size: 0.65rem;
+    justify-content: center;
 }

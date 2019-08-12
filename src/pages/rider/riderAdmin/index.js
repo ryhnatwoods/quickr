@@ -53,22 +53,22 @@ class RiderAdmin extends Component {
         <View className='uu_user_header'>
           <View className='at-row'>
             <View className='at-col at-col-4'>
-              <View className='at-row' style='font-size: 1.25rem'>￥ 0.00</View>
-              <View className='at-row' style='font-size: 0.65rem'>账户余额</View>
+              <View className='at-row uu_user_field_row1'>￥ 0.00</View>
+              <View className='at-row uu_user_field_row2'>账户余额</View>
             </View>
             <View className='at-col at-col-4'>
-              <View className='at-row' style='font-size: 1.25rem'>1200</View>
-              <View className='at-row' style='font-size: 0.65rem'>信用分</View>
+              <View className='at-row uu_user_field_row1'>1200</View>
+              <View className='at-row uu_user_field_row2'>信用分</View>
             </View>
             <View className='at-col at-col-4'>
               
-              <View className='at-row' style='font-size: 1.25rem'>待认证</View>
-              <View className='at-row' style='font-size: 0.65rem'>签约状态</View>
+              <View className='at-row uu_user_field_row1'>待认证</View>
+              <View className='at-row uu_user_field_row2'>签约状态</View>
             </View>
           </View>
         </View>
         <View className='uu_user_body'>
-          <View className='at-row' style='justify-content: center;'>
+          <View className='at-row' style='justify-content: center; padding-bottom: 10px;'>
             <span>----------今日成就----------</span>
           </View>
           <View className='at-row at-row__justify--around' >
