@@ -1,12 +1,14 @@
 import Taro, { Component } from "@tarojs/taro";
+import "@tarojs/async-await";
 import { Provider } from "@tarojs/redux";
 import Index from "./pages/index";
 import configStore from "./store";
 import GlobalData from "./global_data";
+import { checkSession, doLogin, getSession } from "./api/common";
 // import "./assets/font-awesome/font-awesome.css";
 import "./app.scss";
 
-import "./assets/css/element.scss"
+import "./assets/css/element.scss";
 import Logo from "./assets/images/index.png";
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -43,6 +45,11 @@ class App extends Component {
       navigationBarBackgroundColor: "#fff",
       navigationBarTitleText: "WeChat",
       navigationBarTextStyle: "black"
+    },
+    permission: {
+      "scope.userLocation": {
+        desc: "你的位置信息将用于小程序位置接口的效果展示"
+      }
     }
     // tabBar: {
     //   color: "#a09895",
@@ -72,102 +79,42 @@ class App extends Component {
     // }
   };
 
+  loginHandler = result => {
+    const { sessionId, userId, ...rest } = result,
+      loginInfo = {
+        rd_session: sessionId,
+        userId,
+        ...rest
+      };
+
+    //如果用户id是0，说明用户是新用户，跳转到注册页面
+    if (!userId || userId === 0) {
+      Taro.redirectTo({ url: "/pages/register/rider/index" });
+      return;
+    }
+    Taro.setStorageSync("loginInfo", loginInfo);
+    //否则说明此用户是注册用户，获取用户信息，并更新用户
+    Taro.redirectTo({ url: "/pages/login/index" });
+  };
+
   componentWillMount() {
     //页面加载时触发，一个页面一次，DOM还没有准备好，此时无法与视图层进行交互
-    console.log("App Launch");
-    //this.checkSession();
-  }
-
-  checkSession() {
-    const loginInfo = Taro.getStorageSync("loginInfo");
-    const rd_session = loginInfo.rd_session;
     const self = this;
-    if (rd_session) {
-      Taro.checkSession({
-        success: function() {
-          console.log("login successfully");
-        },
-        fail: function() {
-          self.doLogin();
-        }
-      });
-    } else {
-      console.log("rd_session", rd_session);
-      self.doLogin();
-    }
-  }
-
-  doLogin() {
-    const rootUrl = GlobalData.rootUrl;
-    const self = this;
-    Taro.login({
-      success: function(res) {
-        if (!res.code) {
-          //如果用户登录凭证不存在，直接返回
-          return;
-        }
-
-        console.log("wx.login", res);
-        Taro.request({
-          url: rootUrl + "service/session/get",
-          data: {
-            code: res.code
-          },
-          success: function(result) {
-            console.log("setUserSessionKey", result);
-            console.info(result);
-            var rd_session = result.data.sessionId;
-            var userId = result.data.userId;
-            var userName = result.data.userName;
-            var orgName = result.data.orgName;
-            var inner = result.data.inner;
-            var questionnaire = result.data.questionnaire;
-            var loginInfo = {
-              rd_session: rd_session,
-              userId: userId,
-              userName: userName,
-              orgName: orgName,
-              inner: inner,
-              questionnaire: questionnaire,
-              usrMobil: result.data.usrMobil,
-              usrCard: result.data.usrCard,
-              usrDuty: result.data.usrDuty
-            };
-
-            Taro.setStorageSync("loginInfo", loginInfo);
-            self.getUserInfo(userId);
-          }
-        });
-      }
-    });
-  }
-  getUserInfo(userId) {
-    const self = this;
-    const rootUrl = GlobalData.rootUrl;
-    Taro.getUserInfo({
-      success: function(res) {
-        console.log("getUserInfo", res);
-        GlobalData.userInfo = res.userInfo;
-        if (userId > 0) {
-          // update uerInfo
-          Taro.request({
-            url: rootUrl + "service/session/updateUserInfo",
-            data: {
-              userId: userId,
-              nickName: res.userInfo.nickName,
-              province: res.userInfo.province,
-              city: res.userInfo.city,
-              sex: res.userInfo.gender,
-              language: res.userInfo.language,
-              avatarUrl: res.userInfo.avatarUrl
-            },
-            success: function(result) {
-              console.info(result.data.success);
-            }
+    checkSession().then(
+      res => {
+        //...
+      },
+      reason => {
+        console.log(reason);
+        doLogin()
+          .then(res => {
+            return getSession(res);
+          })
+          .then(res => {
+            self.loginHandler(res);
           });
-        }
       }
-    });
+    );
   }
 
   componentDidMount() {

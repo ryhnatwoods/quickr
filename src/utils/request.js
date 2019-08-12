@@ -1,10 +1,11 @@
 import Taro from "@tarojs/taro";
-import Auth from "./auth";
+// import Auth from "./auth";
+import GlobalData from "../global_data";
 
 //请求封装
-async function request(url, data = {}, method = "POST") {
-  const state = Taro.$store.getState();
-  const header = {};
+async function request(url, data = {}, header = {}, method = "POST") {
+  // const state = Taro.$store.getState();
+  // const header = {};
   //没有url，直接报错
   if (!url.trim()) {
     Taro.showModal({
@@ -16,16 +17,17 @@ async function request(url, data = {}, method = "POST") {
   }
 
   //数据
-  data = Object(data, {});
+  // data = Object(data, {});
 
   //请求头
-  header.token = Auth.getToken();
+  // header.token = Auth.getToken();
 
   //请求
   let res = await Taro.request({
-    url: `${state.app.baseURL}${url}`,
+    url: `${GlobalData.rootUrl}${url}`,
     data,
     header,
+    // @ts-ignore
     method
   });
 

@@ -5,7 +5,6 @@ import { AtSearchBar, AtTabs, AtTabsPane, AtInput, AtButton } from "taro-ui";
 import AddrBar from "../../components/public/addrBar";
 import ScrollSelector from "../../components/public/scrollSelector";
 import QQMapWX from "../../libs/qqmap-wx-jssdk.js";
-import SearchAddress from "../../components/searchAddress";
 import "./index.scss";
 
 //import img

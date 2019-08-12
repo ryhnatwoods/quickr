@@ -9,136 +9,66 @@ import {
   Image
 } from "@tarojs/components";
 import { AtForm, AtButton } from "taro-ui";
-
+import * as CONST from "../../constants/register";
+import { connect } from "@tarojs/redux";
+import GlobalData from "../../global_data";
 import "./index.scss";
 import Logo from "../../assets/images/paotui_logo.jpg";
 
+import {
+  updateMobile,
+  updateRandomCode,
+  updateUserType,
+  updateCountDown,
+  sendRandomCode,
+  registerUser,
+  doCountDown
+} from "../../actions/register";
+import { doLogin } from "../../actions/app";
+//当前的状态保存在register下面，具体可以查看reducers/register
+@connect(
+  state => ({
+    mobile: state.register.mobile,
+    code: state.register.code,
+    btnName: state.register.btnName,
+    countDown: state.register.countDown,
+    userType: state.register.userType
+  }),
+  {
+    updateMobile,
+    updateRandomCode,
+    updateUserType,
+    updateCountDown,
+    sendRandomCode,
+    registerUser,
+    doCountDown
+  }
+)
 class Register extends Component {
   config = {
     navigationBarTitleText: "注册"
   };
-  initPageConst() {
-    this.INPUT_CELLPHONE_PLACEHOLDER = "请输入手机号";
-    this.INPUT_RANDOM_CODE_PLACEHOLDER = "填写验证码";
-    this.BTN_RANDOM_CODE_PLACEHOLDER = "获取验证码";
-    this.BTN_RANDOM_CODE_AGAIN_PLACEHOLDER = "s后重新获取";
-    this.RADIO_SHOP_PLACEHOLDER = "商家";
-    this.RADIO_RIDER_PLACEHOLDER = "骑手";
-    this.RADIO_USER_PLACEHOLDER = "用户";
-    this.roles = [
-      {
-        value: "shop",
-        text: this.RADIO_SHOP_PLACEHOLDER,
-        checked: false
-      },
-      {
-        value: "rider",
-        text: this.RADIO_RIDER_PLACEHOLDER,
-        checked: false
-      },
-      {
-        value: "user",
-        text: this.RADIO_USER_PLACEHOLDER,
-        checked: true
-      }
-    ];
-  }
-  constructor() {
-    super(...arguments);
-    this.initPageConst();
-    this.state = {
-      registeredRole: "user",
-      btn_name: "getcodebtn",
-      countDown: 120,
-      mobile: "",
-      code: ""
-    };
-  }
-  handleChange = e => {
-    console.log(e);
-  };
-
-  gotoPanel = e => {
-    e.stopPropagation();
-    const _role = this.state.registeredRole;
-    switch (_role) {
-      case "shop":
-        Taro.navigateTo({
-          url: `/pages/register/shop/index`
-        });
-        break;
-      case "rider":
-        Taro.navigateTo({
-          url: `/pages/register/rider/index`
-        });
-        break;
-      case "user":
-        Taro.navigateTo({
-          url: `/pages/login/index`
-        });
-        break;
-      default:
-        break;
-    }
-  };
-
-  roleHandler = e => {
-    console.log(e);
-    //e.detail.value 获取radio选中的值
-    const _tmp_role = e.detail.value;
-    this.setState({
-      registeredRole: _tmp_role
-    });
-  };
 
   sendRandomCode = e => {
     e.stopPropagation();
-    if (this.state.countDown === 120) {
-      this.doCountDown();
+    let { dispatch, mobile } = this.props;
+    if (mobile == "" || mobile.length < 11) {
       Taro.showModal({
-        title: "",
-        content: "短信已发送",
+        title: "提示",
+        content: "请填写手机号码且长度不小于11位",
         showCancel: false
-      }).then(res => console.log(res.confirm, res.cancel));
+      });
+      return;
+    }
+    if (this.props.countDown === 120) {
+      // doCountDown(120);
+      sendRandomCode(mobile);
     }
   };
 
-  doCountDown = () => {
-    var _count_point = this.state.countDown;
-    console.info(_count_point);
-    if (--_count_point > 0) {
-      this.setState({
-        countDown: _count_point,
-        btn_name: "waitcountdown"
-      });
-      setTimeout(
-        function() {
-          this.doCountDown();
-        }.bind(this),
-        1000
-      );
-    } else {
-      //倒计时重置
-      this.setState({
-        btn_name: "getcodebtn",
-        countDown: 120,
-        code: ""
-      });
-    }
-  };
-  updatePhone = e => {
-    this.setState({
-      mobile: e.target.value
-    });
-  };
-  updateCode = e => {
-    this.setState({
-      code: e.target.value
-    });
-  };
   onSave = e => {
     e.stopPropagation();
-    const { mobile, code } = this.state;
+    const { mobile, code, dispatch } = this.props;
     if (mobile == "") {
       Taro.showModal({
         title: "提示",
@@ -155,38 +85,64 @@ class Register extends Component {
       });
       return;
     }
-    this.gotoPanel(e);
+    const userInfo = GlobalData.userInfo;
+    if (userInfo == null) {
+      Taro.showModal({
+        title: "提示",
+        content: "请点击获取微信授权",
+        showCancel: false
+      });
+      return;
+    }
+    doLogin().then(result => {
+      const nickeName = userInfo.nickName;
+      const userType = this.props.userType;
+      const rd_session = result.data.sessionId;
+
+      Taro.setStorageSync("rd_session", rd_session);
+      dispatch(registerUser(rd_session, nickeName, code, mobile, userType));
+    });
+  };
+
+  onGotUserInfo = res => {
+    // 声明一个变量接收用户授权信息
+    var userinfos = res.detail.userInfo;
+    GlobalData.userInfo = userinfos;
   };
   render() {
+    const { mobile, code, btnName, countDown } = this.props;
     return (
       <View className='uu-register__container'>
         <Image src={Logo} className='logo_item' />
         <AtForm className='uu-register-form__container' onSubmit={this.onSave}>
           <Input
             className='full_input_item'
-            placeholder={this.INPUT_CELLPHONE_PLACEHOLDER}
-            maxLength='60'
-            value={this.state.mobile}
-            onChange={this.updatePhone}
+            placeholder={CONST.INPUT_CELLPHONE_PLACEHOLDER}
+            maxLength={11}
+            value={mobile}
+            onChange={this.props.updateMobile}
             focus
           />
           <View className='randomcode__container'>
             <Input
               className='input_item'
-              placeholder={this.INPUT_RANDOM_CODE_PLACEHOLDER}
-              maxLength='4'
-              value={this.state.code}
-              onChange={this.updateCode}
+              placeholder={CONST.INPUT_RANDOM_CODE_PLACEHOLDER}
+              maxLength={4}
+              value={code}
+              onChange={this.props.updateRandomCode}
               focus
             />
             <Button className='btn_item' onClick={this.sendRandomCode}>
-              {this.state.btn_name === "getcodebtn"
-                ? this.BTN_RANDOM_CODE_PLACEHOLDER
-                : this.state.countDown + this.BTN_RANDOM_CODE_AGAIN_PLACEHOLDER}
+              {btnName === "getcodebtn"
+                ? CONST.BTN_RANDOM_CODE_PLACEHOLDER
+                : countDown + CONST.BTN_RANDOM_CODE_AGAIN_PLACEHOLDER}
             </Button>
           </View>
-          <RadioGroup className='radio-rolegroup' onChange={this.roleHandler}>
-            {this.roles.map((role, index) => {
+          <RadioGroup
+            className='radio-rolegroup'
+            onChange={this.props.updateUserType}
+          >
+            {CONST.roles.map((role, index) => {
               const key = role.value + "_" + index;
               return (
                 <Label className='radio-list__label' for={key} key={key}>
@@ -204,9 +160,15 @@ class Register extends Component {
 
           <View className='register-btn'>
             <AtButton formType='submit'>注册</AtButton>
-            <AtButton formType='submit' onClick={this.gotoPanel}>
-              点击获取微信授权
-            </AtButton>
+            <Button
+              id='login-btn'
+              openType='getUserInfo'
+              lang='zh_CN'
+              onGetUserInfo={this.onGotUserInfo}
+              type='primary'
+            >
+              微信用户快速登录
+            </Button>
           </View>
         </AtForm>
       </View>

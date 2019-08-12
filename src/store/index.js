@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
+import { createLogger } from "redux-logger";
 import rootReducer from "../reducers";
 
 const composeEnhancers =
@@ -9,10 +10,10 @@ const composeEnhancers =
       })
     : compose;
 
-const middlewares = [thunkMiddleware];
+const middlewares = [thunkMiddleware, createLogger()];
 
 // if (process.env.NODE_ENV === 'development') {
-//     middlewares.push(require('redux-logger').createLogger())
+//     middlewares.push()
 // }
 
 const enhancer = composeEnhancers(
@@ -22,5 +23,19 @@ const enhancer = composeEnhancers(
 
 export default function configStore() {
   const store = createStore(rootReducer, enhancer);
+
+  store.dispatch = addPromiseSupportToDispatch(store);
+
   return store;
 }
+
+//在原生的dispatch方法上添加promise支持
+const addPromiseSupportToDispatch = store => {
+  const rawDispatch = store.dispatch;
+  return action => {
+    if (typeof action.then === "function") {
+      return action.then(rawDispatch);
+    }
+    return rawDispatch(action);
+  };
+};

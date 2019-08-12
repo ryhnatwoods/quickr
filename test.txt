@@ -1,0 +1,27 @@
+{
+   "result":2,
+   "msg":"验证码已过期",
+   "userInfo":{
+      "inner":false,
+      "org_name":"",
+      "questionnaire":false,
+      "session_id":"s02igjvzsi5fy5tmxihw7hh6iq",
+      "session_value":"",
+      "success":false,
+      "user_id":0,
+      "user_name":"",
+      "usr_card":"",
+      "usr_duty":"",
+      "usr_mobil":""
+   },
+   "verifyCode":{
+      "code":"0165",
+      "created":"2019-08-11 15:55:10",
+      "id":46,
+      "modified":"2019-08-11 16:52:58",
+      "open_id":"1",
+      "phone":"18321643430",
+      "senddate":"2019-08-11 16:52:58",
+      "user_id":1
+   }
+}

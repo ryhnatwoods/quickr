@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text, Image, Button, Checkbox } from "@tarojs/components";
-import { AtButton } from "taro-ui";
 import "./index.scss";
+import GlobalData from "../../global_data";
 import Logo from "../../assets/images/paotui_logo.jpg";
 
 class Login extends Component {
@@ -9,16 +9,19 @@ class Login extends Component {
     navigationBarTitleText: "登录"
   };
 
-  handleChange = e => {
-    console.log(e);
-  };
-
-  gotoPanel = e => {
-    e.stopPropagation();
+  onGotUserInfo = res => {
+    const detailInfo = res.detail;
+    if (!detailInfo || !detailInfo.userInfo) {
+      return;
+    }
+    // 声明一个变量接收用户授权信息
+    var userinfos = res.detail.userInfo;
+    GlobalData.userInfo = userinfos;
     Taro.navigateTo({
       url: `/pages/shop/index`
     });
   };
+
   render() {
     return (
       <View className='uu-login__container'>
@@ -33,12 +36,20 @@ class Login extends Component {
             <Text>登录后该应用将获得以下权限</Text>
           </View>
           <View className='login_info_chkbox'>
-            <Checkbox value='选中' checked>
+            <Checkbox value='selected' checked disabled>
               获得你的公开信息（昵称，头像等）
             </Checkbox>
           </View>
           <View className='login-btn'>
-            <AtButton formType='submit'>登录</AtButton>
+            <Button
+              id='login-btn'
+              openType='getUserInfo'
+              lang='zh_CN'
+              onGetUserInfo={this.onGotUserInfo}
+              type='primary'
+            >
+              微信用户快速登录
+            </Button>
           </View>
         </View>
       </View>

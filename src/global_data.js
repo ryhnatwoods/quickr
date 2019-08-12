@@ -1,6 +1,6 @@
 const GlobalData = {
   hasLogin: true,
-  rootUrl: ""
+  rootUrl: "https://paotui.xiaopeng.info/quickRun/"
 };
 
 export default GlobalData;

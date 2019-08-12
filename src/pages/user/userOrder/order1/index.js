@@ -76,11 +76,11 @@ class UserOrder extends Component {
   }
   constructor() {
     super(...arguments);
-    this.multiIndex = [0, 0, 0];
     this.state = {
-      selector: this.initDeliverTimeOptions()
+      selector: this.initDeliverTimeOptions(),
+      multiIndex: [0, 0, 0],
+      deliverTime: ""
     };
-    console.log("yyyyy");
   }
   onScrollHandler = e => {
     console.log(e);
@@ -88,43 +88,66 @@ class UserOrder extends Component {
   deliverTimeChange = e => {
     e.stopPropagation();
     console.log(e);
+    const deliverTime = this.showDeliverTime(
+      this.state.selector,
+      e.detail.value
+    );
+    this.setState({
+      deliverTime: deliverTime
+    });
+    selectedFirstColumn = true;
   };
   deliverTimeColumnHandler = e => {
     e.stopPropagation();
     const { column, value } = e.detail;
+    let final_selector = [];
     //第一个0代表列，第二个0代表0中的选项
     const _key = [column, value].join("_");
     switch (_key) {
       case "0_0":
-        selector = this.initDeliverTimeOptions();
+        final_selector = this.initDeliverTimeOptions();
         selectedFirstColumn = true;
         break;
       case "0_1":
-        selector[1] = hours_column;
-        selector[2] = minutes_column;
+        final_selector = fixedSelectColumn.concat([
+          hours_column,
+          minutes_column
+        ]);
         selectedFirstColumn = false;
         break;
       default:
         if (selectedFirstColumn && column === 1) {
+          final_selector = this.initDeliverTimeOptions();
           if (value > 0) {
             //生成 minutes options
-            if (selector[2].length === 0) {
-              selector[2] = minutes_column;
-            }
-          } else {
-            selector[2].length = 0;
+            final_selector[2] = minutes_column;
           }
+        } else {
+          final_selector = fixedSelectColumn.concat([
+            hours_column,
+            minutes_column
+          ]);
         }
 
         break;
     }
     this.setState({
-      selector: selector
+      selector: final_selector
     });
   };
   updateOrderComment = e => {
     e.stopPropagation();
   };
+  showDeliverTime(selector, index) {
+    if (selector.length === 3) {
+      if (selector[2].length === 0) {
+        return selector[0][index[0]] + selector[1][index[1]];
+      }
+      return (
+        selector[0][index[0]] + selector[1][index[1]] + selector[2][index[2]]
+      );
+    }
+  }
   render() {
     return (
       <View>
@@ -168,7 +191,6 @@ class UserOrder extends Component {
                     </View>
                   );
                 })}
-                {props.children}
               </ScrollView>
             </View>
           </View>
@@ -187,9 +209,12 @@ class UserOrder extends Component {
               range={this.state.selector}
               onChange={this.deliverTimeChange}
               onColumnChange={this.deliverTimeColumnHandler}
-              value={this.multiIndex}
+              value={this.state.multiIndex}
             >
-              <View>请选择</View>
+              <View>
+                请选择：
+                {this.state.deliverTime}
+              </View>
             </Picker>
           </View>
         </View>

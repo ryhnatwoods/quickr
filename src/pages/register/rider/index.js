@@ -36,7 +36,9 @@ export default class RiderRegister extends Component {
     if (Array.isArray(front_image) && front_image.length) {
       updateImage.front.showAddBtn = false;
     }
-    this.setState(updateImage);
+    this.setState(updateImage, () => {
+      console.log(this.state.front);
+    });
   }
   uploadUserBack(back_image) {
     console.log(back_image);
@@ -49,7 +51,9 @@ export default class RiderRegister extends Component {
     if (Array.isArray(back_image) && back_image.length) {
       updateImage.back.showAddBtn = false;
     }
-    this.setState(updateImage);
+    this.setState(updateImage, () => {
+      console.log(this.state.back);
+    });
   }
   onSave = e => {
     e.stopPropagation();
@@ -111,7 +115,9 @@ export default class RiderRegister extends Component {
           </Checkbox>
         </View>
         <View className='register-btn'>
-          <AtButton formType='submit'>确认</AtButton>
+          <AtButton formType='submit' onClick={this.uploadUserData}>
+            确认
+          </AtButton>
         </View>
       </AtForm>
     );
